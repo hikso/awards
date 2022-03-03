@@ -1,18 +1,15 @@
+import React from 'react';
 import './App.css';
-import Ballot from './Components/Ballot/Ballot';
+import ListCard from './Components/ListCard/ListCard';
 
 function App() {
-  // Feel free to remove the contents of the header tag to make more room for your code
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
-      <Ballot />
+      <ListCard />
     </div>
   );
+
 }
 
 export default App;
