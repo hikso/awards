@@ -13,6 +13,10 @@ class Categories {
         return this.categories;
     }
 
+    getCategory(id) {
+        return this.categories.find(category => category.id === id);
+    }
+
     deleteCategories( id = '' ){
         this.categories = this.categories.filter(category => category.id !== id);
     }

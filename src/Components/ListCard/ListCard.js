@@ -1,47 +1,69 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import io from 'socket.io-client';
+import './ListCard.css';
+import ListCardCategories from '../ListCardCategories/ListCardCategories';
+
 const ENDPOINT = "http://127.0.0.1:3000";
 
 const ListCard = () => {
-  var socket = io(ENDPOINT);
+  let socket = io(ENDPOINT);
+
+  const [categories, setCategories] = useState([]);
+  const [nomineesSelected, setNomineesSelected] = useState({});
+
 
   socket.on('connected', () =>   {
       console.log('Connected to server');
   });
   
-  socket.on('categories', (data) => {
-      console.clear();
-      console.table(data);
-  });
+
+  useEffect(() => {
+    socket.on('categories', (data) => {
+
+      setCategories(data);
+    });
+  }, []);
+  
+  const onSelectNominee = (_nominee, categoryId) => {
+    nomineesSelected[categoryId] = _nominee;
+
+    setNomineesSelected({...nomineesSelected});
+
+    //reset all votes
+    categories.forEach(category => {
+      if(category.id === categoryId){
+        category.nominees.forEach(nominee => {
+          nominee.votes = 0;
+        });
+      }
+    });
+
+    //find nominee in categories and update votes
+    const category = categories.find(category => category.id === categoryId);
+    const nomineeIndex = category.nominees.findIndex(nominee => nominee.id === _nominee.id);
+    category.nominees[nomineeIndex].votes++;
+
+    setCategories([...categories]);
+  }
+
+  const submitSelection = () => {
+    socket.emit('submitSelection', nomineesSelected);
+  }
 
   return (
     <div className='listCard'>
+      <button className='listCard__floatingButton' onClick={() => {submitSelection()}}>
+        Submit my selection
+      </button>
       <div className='listCard__header'>
         <h1 className='listCard__header__title'>
           Awards 2021
         </h1>
       </div>
-      <div className='listCard__list'>
-        <div className='listCard__list__item'>
-          <h1 className='listCard__list__item__ranking'>
-            1
-          </h1>
-          <h2 className='listCard__list__item__category'>
-            Category  
-          </h2>
-          <h3 className='listCard__list__item__categoryName'>
-            Best Actor
-          </h3>
-          <div className='listCard__list__item__photo'>
-            <img src='https://variety.com/wp-content/uploads/2020/12/nomadland_ver2.jpg' alt='Nomadland' />
-          </div>
-          <div className='listCard__list__item__title'>
-            Nomadland
-          </div>
-        </div>
-      </div>
-      <div className='listCard__footer'>
-        </div>
+      <ListCardCategories
+        categories={categories} 
+        onSelectNominee={onSelectNominee} 
+        nomineesSelected={nomineesSelected}/>
     </div>
   );
 }

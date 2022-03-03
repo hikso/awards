@@ -2,9 +2,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
 }
 
-body { min-height: 100vh; }
+body {
+  background-color: #0D2436;
+}
 
 .App {
   text-align: center;
@@ -37,4 +41,19 @@ body { min-height: 100vh; }
   to {
     transform: rotate(360deg);
   }
+}
+
+button{
+  padding: 10px 30px;
+  font-size: 24px;
+  cursor: pointer;
+  
+  border-radius: 7px;
+  border-bottom-left-radius: 0;
+
+  background-color: #0d2436;
+  color: white;
+
+  transition: all 0.3s;
+  border: none;
 }

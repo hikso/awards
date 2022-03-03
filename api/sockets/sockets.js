@@ -259,4 +259,11 @@ io.on('connection', client => {
         bands.voteBand(data.id);
     });
 
+    client.on('submitSelection', (payload) => {
+      for (const [categoryId, nominee] of Object.entries(payload)) {
+        categories.getCategory(categoryId).voteNominee(nominee.id);
+      }
+      io.emit('categories', categories.getCategories());
+    });
+
 });
