@@ -17,6 +17,8 @@
     position: absolute;
     right: -5px;
     bottom: -5px;
+    min-width: 30px;
+    min-height: 30px;
 }
 
 .listCard__list__item__ranking{

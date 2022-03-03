@@ -5,7 +5,8 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:jest/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -15,11 +16,23 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "jest"
     ],
     "rules": {
     },
     "ignorePatterns": [
         "api/"
-    ]
+    ],
+    "overrides": [
+        {
+          "files": [
+            "**/*.spec.js",
+            "**/*.spec.jsx"
+          ],
+          "env": {
+            "jest": true
+          }
+        }
+      ]
 }

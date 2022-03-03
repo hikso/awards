@@ -4,7 +4,6 @@ import './ListCardCategories.css';
 import ListCardNominees from '../ListCardNominees/ListCardNominees';
 
 const ListCardCategories = ({categories, onSelectNominee, nomineesSelected}) => {
-    console.log('ListCardCategories.js: categories: ', categories);
     return (
         <div className='listCard__categories'>
             { categories && categories.map((category) => {

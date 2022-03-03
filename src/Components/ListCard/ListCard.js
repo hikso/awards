@@ -2,10 +2,37 @@ import React, { useState, useEffect} from 'react';
 import io from 'socket.io-client';
 import './ListCard.css';
 import ListCardCategories from '../ListCardCategories/ListCardCategories';
+import Modal from 'react-modal';
+
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    zIndex: '2',
+    transform: 'translate(-50%, -50%)',
+  },
+};
+
+Modal.setAppElement('#root');
 
 const ENDPOINT = "http://127.0.0.1:3000";
 
 const ListCard = () => {
+
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+  
   let socket = io(ENDPOINT);
 
   const [categories, setCategories] = useState([]);
@@ -19,35 +46,38 @@ const ListCard = () => {
 
   useEffect(() => {
     socket.on('categories', (data) => {
-
+      setNomineesSelected({});
       setCategories(data);
     });
   }, []);
   
   const onSelectNominee = (_nominee, categoryId) => {
+    //rest 1 vote if it was a different nominee
+    if (nomineesSelected[categoryId] && nomineesSelected[categoryId].id !== _nominee.id) {
+      const category = categories.find(category => category.id === categoryId);
+      const nomineeIndex = category.nominees.findIndex(nominee => nominee.id === nomineesSelected[categoryId].id );
+      category.nominees[nomineeIndex].votes--;
+    }
+    if (nomineesSelected[categoryId] && nomineesSelected[categoryId].id === _nominee.id) {
+      return;
+    }
+
     nomineesSelected[categoryId] = _nominee;
-
     setNomineesSelected({...nomineesSelected});
-
-    //reset all votes
-    categories.forEach(category => {
-      if(category.id === categoryId){
-        category.nominees.forEach(nominee => {
-          nominee.votes = 0;
-        });
-      }
-    });
 
     //find nominee in categories and update votes
     const category = categories.find(category => category.id === categoryId);
     const nomineeIndex = category.nominees.findIndex(nominee => nominee.id === _nominee.id);
     category.nominees[nomineeIndex].votes++;
 
+
+
     setCategories([...categories]);
   }
 
   const submitSelection = () => {
     socket.emit('submitSelection', nomineesSelected);
+    openModal();
   }
 
   return (
@@ -64,6 +94,17 @@ const ListCard = () => {
         categories={categories} 
         onSelectNominee={onSelectNominee} 
         nomineesSelected={nomineesSelected}/>
+
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal">
+          <h1 className='modal__success'>
+            Success!
+          </h1>
+      </Modal>
     </div>
   );
 }

@@ -7,3 +7,23 @@
     padding: 20px;
     margin: 10px;
 }
+.modal__success{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 10px;
+    color: #009b86;
+}
+
+@media screen and (max-width: 600px) {
+    .listCard {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        margin: 10px;
+    }
+}

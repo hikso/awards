@@ -246,8 +246,6 @@ generateBallotData();
 
 // Sockets messages
 io.on('connection', client => {
-    console.log('Client connected');
-
 
     client.emit('categories', categories.getCategories());
 

@@ -10,6 +10,12 @@ class Categories {
     }
 
     getCategories() {
+        // sort nominees by votes
+        this.categories.forEach(category => {
+            category.nominees.sort((a, b) => {
+                return b.votes - a.votes;
+            });
+        });
         return this.categories;
     }
 
