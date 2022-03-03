@@ -1,0 +1,23 @@
+
+.listCard__categories{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.listCard__categories__category{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    align-items: flex-start;
+}
+.listCard__floatingButton{
+    z-index: 1;
+    position: sticky;
+    top: 1rem;
+    align-self: flex-end;
+    background-color: #009b86;
+}

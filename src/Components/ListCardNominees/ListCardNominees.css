@@ -1,0 +1,159 @@
+.listCard__list {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 30px;
+    align-items: stretch;
+}
+
+.listCard__list__item__votes{
+    color: #CCCCCCCC;
+    padding: 6px;
+    position: absolute;
+    background: #0d2436;
+    border-radius: 20px;
+    position: absolute;
+    right: -5px;
+    bottom: -5px;
+}
+
+.listCard__list__item__ranking{
+    color: #0D2436;
+    text-decoration: underline;
+    font-size: 3rem;
+}
+
+.listCard__list__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 8px 8px 10px rgb(255 255 255 / 20%);
+    max-width: 220px;
+    position: relative;
+
+    transition: all 1s;
+}
+.listCard__list__item__hover_button__upvote{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.listCard_list_item_hover_button{
+    display: none;
+    
+    opacity: 1;
+    animation-name: fadeIn;
+    -webkit-animation-name: fadeIn; 
+    animation-duration: .5s;   
+    -webkit-animation-duration: .5s;
+    animation-timing-function: ease-in-out; 
+    -webkit-animation-timing-function: ease-in-out;     
+    visibility: visible !important; 
+
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+    backdrop-filter: blur(5.1px);
+    -webkit-backdrop-filter: blur(5.1px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 90%;
+    height: 20%;
+    margin: auto;
+
+}
+
+@keyframes fadeIn {
+    0% {
+        transform: scale(0);
+        opacity: 0.0;       
+    }
+    60% {
+        transform: scale(1.1);  
+    }
+    80% {
+        transform: scale(0.9);
+        opacity: 1; 
+    }   
+    100% {
+        transform: scale(1);
+        opacity: 1; 
+    }       
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        -webkit-transform: scale(0);
+        opacity: 0.0;       
+    }
+    60% {
+        -webkit-transform: scale(1.1);
+    }
+    80% {
+        -webkit-transform: scale(0.9);
+        opacity: 1; 
+    }   
+    100% {
+        -webkit-transform: scale(1);
+        opacity: 1; 
+    }       
+}
+
+.listCard__list__item:hover .listCard__list__item__ranking,
+.listCard__list__item:hover .listCard__list__item__label,
+.listCard__list__item:hover .listCard__list__item__title{
+    color: #CCCCCC;
+}
+.listCard__list__item:hover .listCard__list__item__title{
+    color: #ccccccdd;
+}
+
+.listCard__list__item:hover {
+    box-shadow: 0px 0px 30px  rgb(0 155 134 / 100%);
+    background-color: rgb(0, 155, 134);
+}
+
+.listCard__list__item:hover .listCard_list_item_hover_button{
+    display: block;
+}
+
+.listCard__list__item__body{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.listCard__list__item .listCard__list__item__ranking {
+    color: #0D2436;
+}
+.listCard__list__item__label {
+    color: #0D2436;
+}
+.listCard__list__item__title {
+    color: #0d2436a6;
+}
+.listCard__list__item__label{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.listCard__list__item img{
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.listCard__list__item--selected{
+    box-shadow: 0px 0px 30px  rgb(0 155 134 / 100%);
+    background-color: rgb(0, 155, 134);
+}
